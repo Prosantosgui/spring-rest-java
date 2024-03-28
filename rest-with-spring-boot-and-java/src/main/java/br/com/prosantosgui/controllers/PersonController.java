@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.prosantosgui.model.Person;
+import br.com.prosantosgui.data.vo.v1.PersonVO;
 import br.com.prosantosgui.services.PersonServices;
 
 @RestController
@@ -26,14 +26,14 @@ public class PersonController {
 	//private PersonServices service = new PersonServices();
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll() throws Exception{
+	public List<PersonVO> findAll() throws Exception{
 		
 		return service.findAll();
 	}
 	
 	@GetMapping(value = "/{id}",
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById(
+	public PersonVO findById(
 			@PathVariable(value = "id") Long id
 			) throws Exception{
 		
@@ -43,8 +43,8 @@ public class PersonController {
 	@PostMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person create(
-			@RequestBody Person person
+	public PersonVO create(
+			@RequestBody PersonVO person
 			) throws Exception{
 		
 		return service.create(person);
@@ -53,8 +53,8 @@ public class PersonController {
 	@PutMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person update(
-			@RequestBody Person person
+	public PersonVO update(
+			@RequestBody PersonVO person
 			) throws Exception{
 		
 		return service.update(person);
