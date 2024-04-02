@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.prosantosgui.data.vo.v1.PersonVO;
+import br.com.prosantosgui.data.vo.v2.PersonVOV2;
 import br.com.prosantosgui.exceptions.ResourceNotFoundException;
 import br.com.prosantosgui.mapper.DozerMapper;
+import br.com.prosantosgui.mapper.custom.PersonMapper;
 import br.com.prosantosgui.model.Person;
 import br.com.prosantosgui.repositories.PersonRepository;
 
@@ -22,6 +24,9 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 	
+	@Autowired
+	PersonMapper mapper;
+	
 	public List<PersonVO> findAll(){
 		
 		logger.info("Finding all people!");
@@ -33,12 +38,19 @@ public class PersonServices {
 		
 		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		return DozerMapper.parseObject(entity, PersonVO.class);
-	}
+	} 
 	
 	public PersonVO create(PersonVO person) {
 		logger.info("Creating one person!");
 		var entity = DozerMapper.parseObject(person, Person.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
+	}
+	
+	public PersonVOV2 createV2(PersonVOV2 person) {
+		logger.info("Creating one person with V2!");
+		var entity = mapper.convertVoTOEntity(person);
+		var vo = mapper.convertEntityTOVo(repository.save(entity));
 		return vo;
 	}
 	
@@ -63,7 +75,6 @@ public class PersonServices {
 		
 		repository.delete(entity);
 	}
-	
-	
+
 
 }
