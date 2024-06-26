@@ -1,0 +1,1 @@
+INSERT INTO `person` VALUES (1,'Kentucky - US','Muhammad','Ali asfdsaf','Male'),(2,'Kentucky - US','Muhammad','Ali Jr','Male'),(4,'Mvezo - South Africa','Nelson','Mandela','Male'),(5,'Smiljan - Croatia','Nikola','Tesla','Male');
